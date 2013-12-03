@@ -1,0 +1,30 @@
+{
+  "name": "pg-queries",
+  "version": "0.0.1",
+  "description": "Neat promise and event based access layer around node-postgres",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ilyai/pg-queries.git"
+  },
+  "keywords": [
+    "database",
+    "pg"
+  ],
+  "author": "Ilya Igonkin",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ilyai/pg-queries/issues"
+  },
+  "homepage": "https://github.com/ilyai/pg-queries",
+  "dependencies": {
+    "q": "~0.9.7",
+    "pg": "~2.8.3"
+  }
+}
