@@ -17,7 +17,7 @@ pgq.connect().then(function(connection) {
   connection.query("select version()").then(function(rows) {
     // ....
   });
-}):
+});
 ```
 
 Perform query(-ies) on particular connection.
