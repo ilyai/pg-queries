@@ -8,7 +8,7 @@ Neat promise and event based access layer around node-postgres.
 
 ## Usage
 
-Immediate query.
+Perform query(-ies) on particular connection.
 
 ```javascript
 var pgq = require('pg-queries');
@@ -20,7 +20,7 @@ pgq.connect().then(function(connection) {
 });
 ```
 
-Perform query(-ies) on particular connection.
+Immediate query.
 
 ```javascript
 var pgq = require('pg-queries');
