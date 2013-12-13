@@ -1,5 +1,8 @@
 var pg = require('pg').native;
 var Q = require('q');
+var EventEmitter = require('events').EventEmitter;
+
+module.exports = exports = new EventEmitter();
 
 // configuration
 exports.config = {
@@ -28,10 +31,11 @@ Connection.prototype = {
   query: function(sql, values) {
     var deferred = Q.defer(), rows = [];
 
+    exports.emit('query', sql, values);
     var query = this._pg.client.query(sql, values);
 
     query.on('error', function(error) {
-      // log.error(error);
+      exports.emit('error', error);
       deferred.reject(error);
     });
 
@@ -74,7 +78,7 @@ function connect(config) {
 
   pg.connect(config || exports.config, function(error, client, done) {
     if (error) {
-      // log.error(error);
+      exports.emit('error', error);
       deferred.reject(error);
     } else {
       deferred.resolve(new Connection(client, done));
@@ -102,6 +106,9 @@ function query(/* args... */) {
   connect().then(function(connection) {
     deferred.resolve(connection.query.apply(connection, args));
     connection.release();
+  }).fail(function(error) {
+    exports.emit('error', error);
+    deferred.reject(error);
   });
 
   return deferred.promise;

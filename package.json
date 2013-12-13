@@ -1,6 +1,6 @@
 {
   "name": "pg-queries",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Neat promise and event based access layer around node-postgres",
   "main": "index.js",
   "directories": {

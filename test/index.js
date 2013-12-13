@@ -1,5 +1,6 @@
 var assert = require('assert');
 var pgq = require('./..');
+var sinon = require('sinon');
 
 describe(".connection", function() {
   before(function(done) {
@@ -16,8 +17,11 @@ describe(".connection", function() {
 
   describe(".query()", function() {
     it("should do simple query", function(done) {
+      var onQuery = sinon.spy();
+      pgq.once('query', onQuery);
       this.connection.query("select version()").then(function(rows) {
         assert.ok(/postgres/i.test(rows[0].version));
+        assert.ok(onQuery.calledOnce);
         done();
       }).fail(function(err) {
         assert.ifError(err);
@@ -47,8 +51,11 @@ describe(".connection", function() {
 
 describe(".query()", function() {
   it("should do instant query", function(done) {
+    var onQuery = sinon.spy();
+    pgq.once('query', onQuery);
     pgq.query("select version()").then(function(rows) {
       assert.ok(/postgres/i.test(rows[0].version));
+      assert.ok(onQuery.calledOnce);
       done();
     }).fail(function(err) {
       assert.ifError(err);
